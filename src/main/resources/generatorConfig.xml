@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--这个配置文件暂时没有用到-->
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <classPathEntry location="D:\fileSave\repository\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar"/>
+    <context id="context1">
+        <!-- RowBounds pagination -->
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
+        <!-- <plugin type="org.mybatis.generator.plugins.SerializablePlugin" /> -->
+
+        <!-- 是否生成注释 -->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--<commentGenerator type="com.yybun.generator4mybatis.MyCommentGenerator">
+        </commentGenerator>-->
+        <!-- 数据库连接 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://123.207.61.161:3306/yybun"
+                        userId="root" password="root" />
+
+        <!-- 生成实体类地址 -->
+        <javaModelGenerator targetPackage="com.yybun.entity"
+                            targetProject="src/main/java"/>
+        <!-- 生成mapxml文件 -->
+        <sqlMapGenerator targetPackage="com.yybun.dao.impl"
+                         targetProject="src/main/java" />
+        <!-- 生成mapxml对应client，也就是接口dao -->
+        <javaClientGenerator targetPackage="com.yybun.dao"
+                             targetProject="src/main/java" type="XMLMAPPER" />
+
+        <!-- 数据库表 -->
+        <table  tableName="users" domainObjectName="Users">
+            <!-- 设置别名 -->
+            <columnOverride column="userid" property="userId" />
+            <columnOverride column="pwd" property="password" />
+            <columnOverride column="create_time" property="createTime" />
+            <columnOverride column="modify_time" property="modifyTime" />
+        </table>
+    </context>
+</generatorConfiguration>

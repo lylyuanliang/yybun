@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0"> 
+	<title>登录界面</title>
+    <link href="statics/css/default.css" rel="stylesheet" type="text/css" />
+	<!--必要样式-->
+    <link href="statics/css/styles.css" rel="stylesheet" type="text/css" />
+    <link href="statics/css/demo.css" rel="stylesheet" type="text/css" />
+    <link href="statics/css/loaders.css" rel="stylesheet" type="text/css" />
+    <link href="statics/layui/css/layui.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="statics/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+	<div class='login'>
+	  <div class='login_title'>
+	    <span>管理员登录</span>
+	  </div>
+	  <div class='login_fields'>
+	    <div class='login_fields__user'>
+	      <div class='icon'>
+	        <img alt="" src='statics/images/user_icon_copy.png'>
+	      </div>
+	      <input name="login" placeholder='用户名' maxlength="16" type='text' autocomplete="off"/>
+	        <div class='validation'>
+	          <img alt="" src='statics/images/tick.png'>
+	        </div>
+	    </div>
+	    <div class='login_fields__password'>
+	      <div class='icon'>
+	        <img alt="" src='statics/images/lock_icon_copy.png'>
+	      </div>
+	      <input name="pwd" placeholder='密码' maxlength="16" type='text' autocomplete="off">
+	      <div class='validation'>
+	        <img alt="" src='statics/images/tick.png'>
+	      </div>
+	    </div>
+	    <!--<div class='login_fields__password'>
+	      <div class='icon'>
+	        <img alt="" src='statics/images/key.png'>
+	      </div>
+	      <input name="code" placeholder='验证码' maxlength="4" type='text' name="ValidateNum" autocomplete="off">
+	      <div class='validation' style="opacity: 1; right: -5px;top: -3px;">
+          <canvas class="J_codeimg" id="myCanvas" onclick="Code();">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
+	      </div>
+	    </div>-->
+	    <div class='login_fields__submit'>
+	      <input type='button' value='登录' login>
+			<!--<input type='button' value='注册' style="display: none;">-->
+	    </div>
+	  </div>
+	  <div class='success'>
+	  </div>
+	  <div class='disclaimer'>
+	    <p>欢迎登录后台管理系统  更多网站模板：<a href="http://www.sucaihuo.com/" target="_blank">素材火</a></p>
+	  </div>
+	</div>
+	<div class='authent'>
+	  <div class="loader" style="height: 44px;width: 44px;margin-left: 28px;">
+        <div class="loader-inner ball-clip-rotate-multiple">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        </div>
+	  <p>登陆校验中...</p>
+	</div>
+	<div class="OverWindows"></div>
+	
+	<script type="text/javascript" src="statics/js/jquery.min.js"></script>
+	<script type="text/javascript" src="statics/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src='statics/js/stopExecutionOnTimeout.js?t=1'></script>
+    <script type="text/javascript" src="statics/layui/layui.js"></script>
+    <script type="text/javascript" src="statics/js/Particleground.js"></script>
+    <script type="text/javascript" src="statics/js/Treatment.js"></script>
+    <script type="text/javascript" src="statics/js/jquery.mockjax.js"></script>
+	<script type="text/javascript">
+		var canGetCookie = 0;//是否支持存储Cookie 0 不支持 1 支持
+
+		var CodeVal = 0;
+	    //Code();//我不需要验证码
+	    function Code() {
+			if(canGetCookie == 1){
+				createCode("AdminCode");
+				var AdminCode = getCookieValue("AdminCode");
+				showCheck(AdminCode);
+			}else{
+				showCheck(createCode(""));
+			}
+	    }
+	    function showCheck(a) {
+			CodeVal = a;
+	        var c = document.getElementById("myCanvas");
+	        var ctx = c.getContext("2d");
+	        ctx.clearRect(0, 0, 1000, 1000);
+	        ctx.font = "80px 'Hiragino Sans GB'";
+	        ctx.fillStyle = "#E8DFE8";
+	        ctx.fillText(a, 0, 100);
+	    }
+	    $(document).keypress(function (e) {
+	        // 回车键事件  
+	        if (e.which == 13) {
+	            $('input[type="button"]').click();
+	        }
+	    });
+	    //粒子背景特效
+	    $('body').particleground({
+	        dotColor: '#E8DFE8',
+	        lineColor: '#133b88'
+	    });
+	    $('input[name="pwd"]').focus(function () {
+	        $(this).attr('type', 'password');
+	    });
+	    $('input[type="text"]').focus(function () {
+	        $(this).prev().animate({ 'opacity': '1' }, 200);
+	    });
+	    $('input[type="text"],input[type="password"]').blur(function () {
+	        $(this).prev().animate({ 'opacity': '.5' }, 200);
+	    });
+	    $('input[name="login"],input[name="pwd"]').keyup(function () {
+	        var Len = $(this).val().length;
+	        if (!$(this).val() == '' && Len >= 5) {
+	            $(this).next().animate({
+	                'opacity': '1',
+	                'right': '30'
+	            }, 200);
+	        } else {
+	            $(this).next().animate({
+	                'opacity': '0',
+	                'right': '20'
+	            }, 200);
+	        }
+	    });
+
+	    var fullscreen = function () {
+	        elem = document.body;
+	        if (elem.webkitRequestFullScreen) {
+	            elem.webkitRequestFullScreen();
+	        } else if (elem.mozRequestFullScreen) {
+	            elem.mozRequestFullScreen();
+	        } else if (elem.requestFullScreen) {
+	            elem.requestFullscreen();
+	        } else {
+	            //浏览器不支持全屏API或已被禁用  
+	        }
+	    }  
+		/*if(ajaxmockjax == 1){
+			$.mockjax({  
+				url: 'Ajax/Login',  
+				status: 200,  
+				responseTime: 50,          
+				responseText: {"Status":"ok","Text":"登录成功<br /><br />欢迎回来"}
+});
+$.mockjax({
+url: 'Ajax/LoginFalse',
+status: 200,
+responseTime: 50,
+responseText: {"Status":"Erro","Erro":"账号名或密码或验证码有误"}
+});
+}*/
+</script>
+    <script type="text/javascript" src="statics/js/common/config.js"></script>
+    <!--登陆逻辑 js代码-->
+    <script type="text/javascript" src="statics/js/login/login.js"></script>
+</body>
+</html>
