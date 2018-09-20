@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="yybun:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="yybun-1.0.war">
+      <element id="artifact" artifact-name="yybun:war exploded" />
+    </root>
+  </artifact>
+</component>
