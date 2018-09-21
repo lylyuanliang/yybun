@@ -4,7 +4,10 @@
 layui.define(['layer'], function(exports){ //提示：模块也可以依赖其它模块，如：layui.define('layer', callback);
     var obj = {
         constants : {
-            context : "/yybun"
+            CONTEXT : "/yybun",
+            CODE : {
+                SUCCESS_CODE : "1"
+            }
         },
         //Ajax提交
         ajaxPost : function (Url,jsonData,LodingFun,ReturnFun) {

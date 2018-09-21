@@ -4,7 +4,8 @@ layui.use(['layer', 'form', 'mylayui'], function () {
     var $ = layui.$;
     var common = layui.mylayui;
 
-    var context = common.constants.context;
+    var context = common.constants.CONTEXT;
+    var sussCode = common.constants.CODE.SUCCESS_CODE;
 
     //非空验证
     $('input[type="button"]').click(function () {
@@ -53,7 +54,7 @@ layui.use(['layer', 'form', 'mylayui'], function () {
                 function (data) {
                     //ajax返回
                     //认证完成
-                    if (data["rtnCode"] == "1") {
+                    if (data["rtnCode"] == sussCode) {
                         //登录成功
                         $('.login div').fadeOut(100);
                         $('.success').fadeIn(1000);
@@ -61,7 +62,6 @@ layui.use(['layer', 'form', 'mylayui'], function () {
                         //跳转操作
                         $(location).attr('href', context + '/views/customer/showcustomer.html');
                     } else {
-
                         layer.alert('<span style=\'color:black\'>' + data["message"] + '</span>', {
                             closeBtn: 0
                         }, function(index) {
